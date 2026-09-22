@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Latihan Matematika</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f4f8;
+            display: flex;
+            justify-content: center;
+            padding: 40px 15px;
+        }
+
+        .container {
+            background: white;
+            width: 100%;
+            max-width: 600px;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        #question {
+            font-size: 20px;
+            margin: 30px 0;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            box-sizing: border-box;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        button {
+            padding: 12px 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+
+        #check {
+            background: #2563eb;
+            color: white;
+        }
+
+        #next {
+            background: #ddd;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        #score {
+            text-align: right;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🧮 Latihan Matematika</h1>
+
+    <p id="score">Skor: 0</p>
+
+    <p id="question"></p>
+
+    <input
+        type="number"
+        id="answer"
+        placeholder="Masukkan jawaban"
+    >
+
+    <button id="check">
+        Cek Jawaban
+    </button>
+
+    <button id="next">
+        Soal Berikutnya
+    </button>
+
+    <p id="result"></p>
+
+</div>
+
+<script>
+
+const questions = [
+    {
+        question: "Jika 3x + 5 = 20, berapakah nilai x?",
+        answer: 5
+    },
+
+    {
+        question: "Hitung 12 × 8.",
+        answer: 96
+    },
+
+    {
+        question: "Jika 2x - 7 = 15, berapakah nilai x?",
+        answer: 11
+    },
+
+    {
+        question: "Hitung luas persegi dengan sisi 9 cm.",
+        answer: 81
+    },
+
+    {
+        question: "Hitung 144 ÷ 12.",
+        answer: 12
+    }
+];
+
+let currentQuestion = 0;
+let score = 0;
+
+const questionElement = document.getElementById("question");
+const answerElement = document.getElementById("answer");
+const resultElement = document.getElementById("result");
+const scoreElement = document.getElementById("score");
+
+function showQuestion() {
+
+    questionElement.textContent =
+        questions[currentQuestion].question;
+
+    answerElement.value = "";
+
+    resultElement.textContent = "";
+
+    answerElement.focus();
+}
+
+document.getElementById("check").addEventListener("click", function() {
+
+    const userAnswer = Number(answerElement.value);
+
+    const correctAnswer =
+        questions[currentQuestion].answer;
+
+    if (userAnswer === correctAnswer) {
+
+        resultElement.textContent = "✅ Benar!";
+        score++;
+
+    } else {
+
+        resultElement.textContent =
+            "❌ Salah! Jawaban yang benar adalah " +
+            correctAnswer;
+    }
+
+    scoreElement.textContent =
+        "Skor: " + score;
+});
+
+document.getElementById("next").addEventListener("click", function() {
+
+    if (currentQuestion < questions.length - 1) {
+
+        currentQuestion++;
+
+        showQuestion();
+
+    } else {
+
+        questionElement.textContent =
+            "🎉 Semua soal selesai!";
+
+        answerElement.style.display = "none";
+
+        resultElement.textContent =
+            "Skor akhir: " +
+            score +
+            "/" +
+            questions.length;
+    }
+});
+
+showQuestion();
+
+</script>
+
+</body>
+</html>
