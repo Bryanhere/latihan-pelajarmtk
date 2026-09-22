@@ -1,450 +1,100 @@
-```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>MathLab - Latihan Matematika</title>
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f7f9fc;
-            color: #172033;
-        }
-
-        /* =========================
-           NAVBAR
-        ========================= */
-
-        nav {
-            height: 70px;
-            background: white;
-            border-bottom: 1px solid #e5e7eb;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            padding: 0 7%;
-        }
-
-        .logo {
-            font-size: 22px;
-            font-weight: 700;
-            text-decoration: none;
-            color: #172033;
-        }
-
-        .logo span {
-            color: #2563eb;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #4b5563;
-            font-size: 15px;
-            transition: 0.2s;
-        }
-
-        .nav-links a:hover {
-            color: #2563eb;
-        }
-
-        .nav-links .active {
-            color: #2563eb;
-            font-weight: 600;
-        }
-
-
-        /* =========================
-           HERO
-        ========================= */
-
-        .hero {
-            min-height: 520px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            text-align: center;
-
-            padding: 70px 20px;
-        }
-
-        .hero-content {
-            max-width: 750px;
-        }
-
-        .hero-label {
-            display: inline-block;
-
-            background: #eaf1ff;
-            color: #2563eb;
-
-            padding: 8px 15px;
-            border-radius: 20px;
-
-            font-size: 14px;
-            font-weight: 600;
-
-            margin-bottom: 20px;
-        }
-
-        .hero h1 {
-            font-size: 58px;
-            line-height: 1.08;
-
-            margin-bottom: 22px;
-        }
-
-        .hero h1 span {
-            color: #2563eb;
-        }
-
-        .hero p {
-            color: #6b7280;
-
-            font-size: 18px;
-            line-height: 1.7;
-
-            margin-bottom: 35px;
-        }
-
-        .start-button {
-            display: inline-block;
-
-            background: #2563eb;
-            color: white;
-
-            padding: 15px 28px;
-
-            border-radius: 10px;
-
-            text-decoration: none;
-            font-size: 16px;
-            font-weight: 600;
-
-            transition: 0.2s;
-        }
-
-        .start-button:hover {
-            background: #1d4ed8;
-            transform: translateY(-2px);
-        }
-
-
-        /* =========================
-           FEATURES
-        ========================= */
-
-        .features-section {
-            max-width: 1050px;
-            margin: 0 auto;
-
-            padding: 20px 20px 70px;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 35px;
-        }
-
-        .section-title h2 {
-            font-size: 30px;
-            margin-bottom: 10px;
-        }
-
-        .section-title p {
-            color: #6b7280;
-        }
-
-        .features {
-            display: grid;
-
-            grid-template-columns: repeat(3, 1fr);
-
-            gap: 20px;
-        }
-
-        .feature {
-            background: white;
-
-            border: 1px solid #e5e7eb;
-            border-radius: 15px;
-
-            padding: 30px;
-
-            transition: 0.2s;
-        }
-
-        .feature:hover {
-            transform: translateY(-4px);
-        }
-
-        .feature-icon {
-            font-size: 32px;
-            margin-bottom: 18px;
-        }
-
-        .feature h3 {
-            font-size: 19px;
-            margin-bottom: 10px;
-        }
-
-        .feature p {
-            color: #6b7280;
-            line-height: 1.6;
-            font-size: 15px;
-        }
-
-
-        /* =========================
-           FOOTER
-        ========================= */
-
-        footer {
-            text-align: center;
-
-            padding: 25px;
-
-            color: #6b7280;
-
-            font-size: 14px;
-
-            border-top: 1px solid #e5e7eb;
-            background: white;
-        }
-
-
-        /* =========================
-           MOBILE
-        ========================= */
-
-        @media (max-width: 700px) {
-
-            nav {
-                padding: 0 20px;
-            }
-
-            .nav-links {
-                gap: 12px;
-            }
-
-            .nav-links a {
-                font-size: 13px;
-            }
-
-            .hero {
-                min-height: 450px;
-            }
-
-            .hero h1 {
-                font-size: 40px;
-            }
-
-            .hero p {
-                font-size: 16px;
-            }
-
-            .features {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="logo">🧮 MathLab</div>
 
-    <!-- =========================
-         NAVBAR
-    ========================= -->
-
-    <nav>
-
-        <a href="index.html" class="logo">
-            🧮 <span>Math</span>Lab
-        </a>
-
-        <ul class="nav-links">
-
-            <li>
-                <a href="index.html" class="active">
-                    Home
-                </a>
-            </li>
-
-            <li>
-                <a href="soal.html">
-                    Soal
-                </a>
-            </li>
-
-            <li>
-                <a href="ujian.html">
-                    Ujian
-                </a>
-            </li>
-
-            <li>
-                <a href="nilai.html">
-                    Nilai
-                </a>
-            </li>
-
-        </ul>
-
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="soal.html">Soal</a>
+            <a href="ujian.html">Ujian</a>
+            <a href="nilai.html">Nilai</a>
+        </div>
     </nav>
 
 
-    <!-- =========================
-         HERO SECTION
-    ========================= -->
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
 
-    <main>
+            <p class="small-title">PLATFORM LATIHAN MATEMATIKA</p>
 
-        <section class="hero">
+            <h1>
+                Belajar Matematika<br>
+                Jadi Lebih Mudah.
+            </h1>
 
-            <div class="hero-content">
+            <p class="description">
+                Latihan soal matematika, kerjakan ujian,
+                dan lihat hasil nilaimu dalam satu tempat.
+            </p>
 
-                <div class="hero-label">
-                    Platform Latihan Matematika
-                </div>
+            <a href="soal.html" class="start-button">
+                Mulai Mengerjakan →
+            </a>
 
-                <h1>
-                    Belajar Matematika
-                    <br>
-                    Jadi <span>Lebih Mudah.</span>
-                </h1>
+        </div>
+    </section>
 
+
+    <!-- FEATURES -->
+    <section class="features">
+
+        <h2>Apa yang Bisa Kamu Lakukan?</h2>
+
+        <div class="feature-container">
+
+            <div class="feature-card">
+                <div class="icon">📝</div>
+                <h3>Latihan Soal</h3>
                 <p>
-                    Latih kemampuan matematika kamu melalui
-                    berbagai soal, latihan, dan ujian secara online.
+                    Kerjakan berbagai soal matematika
+                    untuk meningkatkan kemampuanmu.
                 </p>
-
-                <a href="soal.html" class="start-button">
-                    Mulai Mengerjakan →
-                </a>
-
+                <a href="soal.html">Mulai Latihan →</a>
             </div>
 
-        </section>
 
-
-        <!-- =========================
-             FEATURES
-        ========================= -->
-
-        <section class="features-section">
-
-            <div class="section-title">
-
-                <h2>
-                    Apa yang tersedia?
-                </h2>
-
+            <div class="feature-card">
+                <div class="icon">⏱️</div>
+                <h3>Mode Ujian</h3>
                 <p>
-                    Semua yang kamu butuhkan untuk berlatih matematika.
+                    Simulasikan ujian matematika
+                    dengan batas waktu.
                 </p>
-
+                <a href="ujian.html">Mulai Ujian →</a>
             </div>
 
 
-            <div class="features">
-
-                <!-- FEATURE 1 -->
-
-                <div class="feature">
-
-                    <div class="feature-icon">
-                        📚
-                    </div>
-
-                    <h3>
-                        Latihan Soal
-                    </h3>
-
-                    <p>
-                        Kerjakan berbagai soal matematika
-                        dan langsung periksa jawabanmu.
-                    </p>
-
-                </div>
-
-
-                <!-- FEATURE 2 -->
-
-                <div class="feature">
-
-                    <div class="feature-icon">
-                        📝
-                    </div>
-
-                    <h3>
-                        Mode Ujian
-                    </h3>
-
-                    <p>
-                        Simulasikan ujian dengan batas waktu
-                        dan kumpulan soal yang tersedia.
-                    </p>
-
-                </div>
-
-
-                <!-- FEATURE 3 -->
-
-                <div class="feature">
-
-                    <div class="feature-icon">
-                        📊
-                    </div>
-
-                    <h3>
-                        Lihat Nilai
-                    </h3>
-
-                    <p>
-                        Lihat hasil latihan dan ujianmu
-                        untuk mengetahui perkembangan belajar.
-                    </p>
-
-                </div>
-
+            <div class="feature-card">
+                <div class="icon">📊</div>
+                <h3>Lihat Nilai</h3>
+                <p>
+                    Lihat hasil latihan dan ujian
+                    yang sudah kamu kerjakan.
+                </p>
+                <a href="nilai.html">Lihat Nilai →</a>
             </div>
 
-        </section>
+        </div>
 
-    </main>
+    </section>
 
 
-    <!-- =========================
-         FOOTER
-    ========================= -->
-
+    <!-- FOOTER -->
     <footer>
-
-        © 2026 MathLab — Platform Latihan Matematika
-
+        <p>© 2026 MathLab. Belajar matematika dengan lebih mudah.</p>
     </footer>
-
 
 </body>
 </html>
-```
