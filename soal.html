@@ -1731,6 +1731,7 @@ const questions = [
 let currentQuestion = 0;
 let score = 0;
 let answered = false;
+let solutionViewed = false;
 
 
 /* =====================================================
@@ -1745,6 +1746,7 @@ function showQuestion() {
         document.getElementById("questionContainer");
 
     answered = false;
+    solutionViewed = false;
 
     let diagramHTML = "";
 
@@ -1795,7 +1797,8 @@ function showQuestion() {
                 class="feedback">
             </div>
 
-            <details class="solution">
+            <details class="solution" id="solutionDetails"
+                ontoggle="solutionOpened()">
 
                 <summary>
                     ▶ Jawaban & Pembahasan
@@ -1838,12 +1841,24 @@ function showQuestion() {
 
     updateProgress();
 }
+function solutionOpened() {
 
+    const solution =
+        document.getElementById("solutionDetails");
+
+    if (solution.open) {
+
+        solutionViewed = true;
+
+    }
+
+}
 
 /* =====================================================
    PILIH JAWABAN
 ===================================================== */
 
+    
 function selectAnswer(index) {
 
     if (answered) return;
@@ -1858,13 +1873,24 @@ function selectAnswer(index) {
     const feedback =
         document.getElementById("feedback");
 
+if (index === question.correct) {
 
-    if (index === question.correct) {
+    buttons[index].classList.add("correct");
 
-        buttons[index].classList.add("correct");
+    if (solutionViewed) {
 
         feedback.textContent =
-            "✓ Benar! Jawaban kamu tepat.";
+            "✓ Jawaban benar, tetapi poin tidak diberikan karena pembahasan sudah dibuka.";
+
+        feedback.classList.add(
+            "show",
+            "correct-feedback"
+        );
+
+    } else {
+
+        feedback.textContent =
+            "✓ Benar! +1 poin.";
 
         feedback.classList.add(
             "show",
@@ -1872,6 +1898,10 @@ function selectAnswer(index) {
         );
 
         score++;
+
+    }
+
+}
 
     } else {
 
