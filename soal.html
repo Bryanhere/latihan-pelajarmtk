@@ -1861,6 +1861,7 @@ function solutionOpened() {
     
 function selectAnswer(index) {
 
+    // Tidak boleh menjawab dua kali
     if (answered) return;
 
     answered = true;
@@ -1873,35 +1874,49 @@ function selectAnswer(index) {
     const feedback =
         document.getElementById("feedback");
 
-if (index === question.correct) {
 
-    buttons[index].classList.add("correct");
+    // =========================================
+    // JAWABAN BENAR
+    // =========================================
 
-    if (solutionViewed) {
+    if (index === question.correct) {
 
-        feedback.textContent =
-            "✓ Jawaban benar, tetapi poin tidak diberikan karena pembahasan sudah dibuka.";
+        buttons[index].classList.add("correct");
 
-        feedback.classList.add(
-            "show",
-            "correct-feedback"
-        );
 
-    } else {
+        // Kalau pembahasan SUDAH dibuka,
+        // jawaban benar TIDAK mendapat poin.
+        if (solutionViewed) {
 
-        feedback.textContent =
-            "✓ Benar! +1 poin.";
+            feedback.textContent =
+                "✓ Jawaban benar, tetapi 0 poin karena pembahasan sudah dibuka.";
 
-        feedback.classList.add(
-            "show",
-            "correct-feedback"
-        );
+            feedback.classList.add(
+                "show",
+                "correct-feedback"
+            );
 
-        score++;
 
-    }
+        } else {
 
-}
+            // Kalau belum membuka pembahasan,
+            // jawaban benar mendapat +1.
+            score++;
+
+            feedback.textContent =
+                "✓ Benar! +1 poin.";
+
+            feedback.classList.add(
+                "show",
+                "correct-feedback"
+            );
+
+        }
+
+
+    // =========================================
+    // JAWABAN SALAH
+    // =========================================
 
     } else {
 
@@ -1912,14 +1927,17 @@ if (index === question.correct) {
 
         feedback.innerHTML =
             "✗ Jawaban belum tepat. " +
-            "Lihat jawaban yang benar pada pilihan yang ditandai.";
+            "Jawaban yang benar ditandai dengan warna hijau.";
 
         feedback.classList.add(
             "show",
             "wrong-feedback"
         );
+
     }
 
+
+    // Update skor di bagian atas
     document.getElementById("scoreText").textContent =
         `Skor: ${score}`;
 
