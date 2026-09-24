@@ -6,83 +6,2059 @@
 
     <title>Soal - MathLab</title>
 
+    <!-- CSS utama website -->
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* =========================================
+           HALAMAN SOAL
+        ========================================= */
+
+        .question-page {
+            min-height: 100vh;
+            padding: 55px 20px 80px;
+            background: #f8fafc;
+        }
+
+        .question-header {
+            max-width: 900px;
+            margin: 0 auto 30px;
+            text-align: center;
+        }
+
+        .question-header h1 {
+            font-size: 42px;
+            margin: 10px 0;
+        }
+
+        .question-header p {
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        .hero-label {
+            display: inline-block;
+            padding: 7px 14px;
+            border-radius: 20px;
+            background: #eaf1ff;
+            color: #2563eb;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        /* Progress */
+
+        .progress-container {
+            max-width: 850px;
+            margin: 0 auto 20px;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 5%;
+            background: #2563eb;
+            transition: width 0.3s;
+        }
+
+        /* Question card */
+
+        .question-container {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        .question-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 18px;
+            padding: 30px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+        }
+
+        .question-number {
+            display: inline-block;
+            background: #eff6ff;
+            color: #2563eb;
+            padding: 7px 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .question-text {
+            font-size: 21px;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        /* Math */
+
+        .math {
+            font-family: "Times New Roman", serif;
+            font-size: 23px;
+        }
+
+        /* Diagram */
+
+        .diagram {
+            margin: 20px auto 25px;
+            padding: 20px;
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            text-align: center;
+            overflow-x: auto;
+        }
+
+        .diagram svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .diagram-caption {
+            margin-top: 10px;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        /* Answers */
+
+        .answers {
+            display: grid;
+            gap: 12px;
+        }
+
+        .answer {
+            width: 100%;
+            padding: 15px 18px;
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 11px;
+            text-align: left;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .answer:hover {
+            border-color: #2563eb;
+            background: #f8fbff;
+        }
+
+        .answer.selected {
+            border-color: #2563eb;
+            background: #eff6ff;
+        }
+
+        .answer.correct {
+            border-color: #16a34a;
+            background: #f0fdf4;
+        }
+
+        .answer.wrong {
+            border-color: #dc2626;
+            background: #fef2f2;
+        }
+
+        /* Feedback */
+
+        .feedback {
+            margin-top: 20px;
+            padding: 14px;
+            border-radius: 10px;
+            display: none;
+            font-weight: bold;
+        }
+
+        .feedback.show {
+            display: block;
+        }
+
+        .feedback.correct-feedback {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .feedback.wrong-feedback {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        /* Pembahasan */
+
+        .solution {
+            margin-top: 20px;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .solution summary {
+            padding: 15px 18px;
+            cursor: pointer;
+            font-weight: bold;
+            background: #f8fafc;
+        }
+
+        .solution-content {
+            padding: 18px;
+            line-height: 1.7;
+            color: #374151;
+        }
+
+        .solution-content strong {
+            color: #111827;
+        }
+
+        /* Navigation */
+
+        .question-navigation {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .nav-button {
+            padding: 13px 22px;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .previous-button {
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        .next-button {
+            background: #2563eb;
+            color: white;
+        }
+
+        .next-button:hover {
+            background: #1d4ed8;
+        }
+
+        /* Result */
+
+        .result-screen {
+            display: none;
+            text-align: center;
+            max-width: 650px;
+            margin: 40px auto;
+            background: white;
+            padding: 45px 30px;
+            border-radius: 18px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+        }
+
+        .result-screen.show {
+            display: block;
+        }
+
+        .result-score {
+            font-size: 55px;
+            font-weight: bold;
+            color: #2563eb;
+            margin: 20px;
+        }
+
+        .restart-button {
+            padding: 13px 25px;
+            border: none;
+            border-radius: 10px;
+            background: #2563eb;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Mobile */
+
+        @media (max-width: 700px) {
+
+            .question-header h1 {
+                font-size: 34px;
+            }
+
+            .question-card {
+                padding: 22px;
+            }
+
+            .question-text {
+                font-size: 18px;
+            }
+
+            .question-navigation {
+                flex-direction: column;
+            }
+
+            .nav-button {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-    <nav>
+    <!-- =========================================
+         NAVBAR
+    ========================================= -->
+
+    <nav class="navbar">
+
         <a href="index.html" class="logo">
-            🧮 <span>Math</span>Lab
+            🧮 MathLab
         </a>
 
-        <ul class="nav-links">
-            <li>
-                <a href="index.html">Home</a>
-            </li>
+        <div class="nav-links">
 
-            <li>
-                <a href="soal.html" class="active">Soal</a>
-            </li>
+            <a href="index.html">
+                Home
+            </a>
 
-            <li>
-                <a href="ujian.html">Ujian</a>
-            </li>
+            <a href="soal.html">
+                Soal
+            </a>
 
-            <li>
-                <a href="nilai.html">Nilai</a>
-            </li>
-        </ul>
+            <a href="ujian.html">
+                Ujian
+            </a>
+
+            <a href="nilai.html">
+                Nilai
+            </a>
+
+        </div>
+
     </nav>
 
+
+    <!-- =========================================
+         MAIN
+    ========================================= -->
 
     <main class="question-page">
 
         <div class="question-header">
-            <p class="hero-label">LATIHAN MATEMATIKA</p>
 
-            <h1>Latihan Soal</h1>
+            <span class="hero-label">
+                KELAS 9
+            </span>
+
+            <h1>
+                Latihan Soal Matematika
+            </h1>
 
             <p>
-                Pilih soal dan uji kemampuan matematika kamu.
+                Bilangan Berpangkat, Bentuk Akar,
+                Notasi Ilmiah & Bangun Ruang
             </p>
+
         </div>
 
 
-        <div class="question-container">
+        <!-- PROGRESS -->
 
-            <div class="question-card">
+        <div class="progress-container">
 
-                <div class="question-number">
-                    Soal 1 dari 5
-                </div>
+            <div class="progress-info">
 
-                <h2>
-                    Berapakah hasil dari 12 × 8?
-                </h2>
+                <span id="progressText">
+                    Soal 1 dari 20
+                </span>
 
-                <div class="answers">
+                <span id="scoreText">
+                    Skor: 0
+                </span>
 
-                    <button>A. 86</button>
+            </div>
 
-                    <button>B. 96</button>
+            <div class="progress-bar">
 
-                    <button>C. 108</button>
-
-                    <button>D. 112</button>
-
+                <div
+                    class="progress-fill"
+                    id="progressFill">
                 </div>
 
             </div>
 
         </div>
 
+
+        <!-- QUESTION -->
+
+        <div
+            class="question-container"
+            id="questionContainer">
+
+        </div>
+
+
+        <!-- RESULT -->
+
+        <div
+            class="result-screen"
+            id="resultScreen">
+
+            <div style="font-size:50px;">
+                🎉
+            </div>
+
+            <h2>
+                Latihan Selesai!
+            </h2>
+
+            <p>
+                Berikut hasil latihanmu:
+            </p>
+
+            <div
+                class="result-score"
+                id="finalScore">
+                0/20
+            </div>
+
+            <p id="finalMessage"></p>
+
+            <br>
+
+            <button
+                class="restart-button"
+                onclick="restartQuiz()">
+
+                🔄 Ulangi Latihan
+
+            </button>
+
+        </div>
+
     </main>
 
 
+    <!-- =========================================
+         FOOTER
+    ========================================= -->
+
     <footer>
+
         © 2026 MathLab — Platform Latihan Matematika
+
     </footer>
+
+
+<script>
+
+/* =====================================================
+   BANK SOAL KELAS 9
+===================================================== */
+
+const questions = [
+
+    {
+        question: `
+            Diketahui:
+            <span class="math">a³ × b³</span>.
+            Bentuk yang setara adalah...
+        `,
+
+        answers: [
+            "(ab)²",
+            "(ab)³",
+            "a³ + b³",
+            "a + b³"
+        ],
+
+        correct: 1,
+
+        explanation: `
+            <strong>Jawaban: B. (ab)³</strong><br><br>
+
+            Gunakan sifat perpangkatan:
+            <br>
+            <span class="math">aⁿ × bⁿ = (ab)ⁿ</span>
+            <br><br>
+
+            Jadi:
+            <br>
+            <span class="math">a³ × b³ = (ab)³</span>
+        `
+    },
+
+
+    {
+        question: `
+            Hasil dari
+            <span class="math">(2/3)<sup>−2</sup></span>
+            adalah...
+        `,
+
+        answers: [
+            "−4/9",
+            "−9/4",
+            "9/4",
+            "4/9"
+        ],
+
+        correct: 2,
+
+        explanation: `
+            <strong>Jawaban: C. 9/4</strong><br><br>
+
+            Pangkat negatif berarti membalik pecahan:
+            <br>
+            <span class="math">(2/3)<sup>−2</sup>
+            = (3/2)²</span>
+            <br><br>
+
+            Kemudian:
+            <br>
+            <span class="math">3²/2² = 9/4</span>
+        `
+    },
+
+
+    {
+        question: `
+            Hasil dari
+            <span class="math">
+            (3³ × 6³) ÷ 9²
+            </span>
+            adalah...
+        `,
+
+        answers: [
+            "144",
+            "72",
+            "36",
+            "18"
+        ],
+
+        correct: 1,
+
+        explanation: `
+            <strong>Jawaban: B. 72</strong><br><br>
+
+            Gabungkan pangkat:
+            <br>
+            <span class="math">
+            3³ × 6³ = (3 × 6)³ = 18³
+            </span>
+            <br><br>
+
+            Jadi:
+            <br>
+            <span class="math">
+            18³ ÷ 9²
+            = 5832 ÷ 81
+            = 72
+            </span>
+        `
+    },
+
+
+    {
+        question: `
+            Hasil dari
+            <span class="math">
+            5<sup>−2</sup> + 5<sup>−1</sup>
+            + 5⁰ + 5¹ + 5²
+            </span>
+            adalah...
+        `,
+
+        answers: [
+            "31 6/25",
+            "31 4/25",
+            "30 6/25",
+            "30 4/25"
+        ],
+
+        correct: 0,
+
+        explanation: `
+            <strong>Jawaban: A. 31 6/25</strong><br><br>
+
+            Ubah pangkat negatif:
+            <br>
+            <span class="math">
+            5⁻² = 1/25
+            </span><br>
+            <span class="math">
+            5⁻¹ = 1/5
+            </span>
+            <br><br>
+
+            Maka:
+            <br>
+            <span class="math">
+            1/25 + 1/5 + 1 + 5 + 25
+            </span>
+            <br><br>
+
+            <span class="math">
+            = 31 + 6/25
+            = 31 6/25
+            </span>
+        `
+    },
+
+
+    {
+        question: `
+            Jika
+            <span class="math">2<sup>m</sup> = 32</span>
+            dan
+            <span class="math">2<sup>n</sup> = 8</span>,
+            maka nilai <span class="math">m + n</span> adalah...
+        `,
+
+        answers: [
+            "5",
+            "6",
+            "8",
+            "10"
+        ],
+
+        correct: 2,
+
+        explanation: `
+            <strong>Jawaban: C. 8</strong><br><br>
+
+            Karena:
+            <br>
+            <span class="math">32 = 2⁵</span>,
+            maka <span class="math">m = 5</span>.
+            <br><br>
+
+            <span class="math">8 = 2³</span>,
+            maka <span class="math">n = 3</span>.
+            <br><br>
+
+            Jadi:
+            <br>
+            <span class="math">m + n = 5 + 3 = 8</span>
+        `
+    },
+
+
+    {
+        question: `
+            Bentuk positif dari
+            <span class="math">x<sup>−3</sup></span>
+            adalah...
+        `,
+
+        answers: [
+            "x³",
+            "−x³",
+            "1/x³",
+            "1/x⁻³"
+        ],
+
+        correct: 2,
+
+        explanation: `
+            <strong>Jawaban: C. 1/x³</strong><br><br>
+
+            Sifat pangkat negatif:
+            <br>
+            <span class="math">
+            x<sup>−n</sup> = 1/xⁿ
+            </span>
+            <br><br>
+
+            Jadi:
+            <br>
+            <span class="math">
+            x<sup>−3</sup> = 1/x³
+            </span>
+        `
+    },
+
+
+    {
+        question: `
+            Bentuk paling sederhana dari
+            <span class="math">
+            3<sup>2m+5</sup> ÷ 3<sup>m+2</sup>
+            </span>
+            adalah...
+        `,
+
+        answers: [
+            "3<sup>m+7</sup>",
+            "3<sup>m+3</sup>",
+            "3<sup>3m+7</sup>",
+            "3<sup>m−3</sup>"
+        ],
+
+        correct: 1,
+
+        explanation: `
+            <strong>Jawaban: B. 3<sup>m+3</sup></strong><br><br>
+
+            Jika basis sama dan dibagi, pangkat dikurangkan:
+            <br>
+            <span class="math">
+            3<sup>2m+5</sup> ÷ 3<sup>m+2</sup>
+            =
+            3<sup>(2m+5)−(m+2)</sup>
+            </span>
+            <br><br>
+
+            <span class="math">
+            = 3<sup>m+3</sup>
+            </span>
+        `
+    },
+
+
+    {
+        question: `
+            Bentuk sederhana dari
+            <span class="math">√108</span>
+            adalah...
+        `,
+
+        answers: [
+            "6√3",
+            "5√3",
+            "6√2",
+            "5√2"
+        ],
+
+        correct: 0,
+
+        explanation: `
+            <strong>Jawaban: A. 6√3</strong><br><br>
+
+            Pecah 108 menjadi:
+            <br>
+            <span class="math">108 = 36 × 3</span>
+            <br><br>
+
+            Maka:
+            <br>
+            <span class="math">
+            √108 = √36 × √3
+            = 6√3
+            </span>
+        `
+    },
+
+
+    {
+        question: `
+            Hasil dari
+            <span class="math">
+            √50 + √8
+            </span>
+            adalah...
+        `,
+
+        answers: [
+            "7√2",
+            "8√2",
+            "9√2",
+            "10√2"
+        ],
+
+        correct: 0,
+
+        explanation: `
+            <strong>Jawaban: A. 7√2</strong><br><br>
+
+            <span class="math">
+            √50 = √25×2 = 5√2
+            </span>
+            <br>
+            <span class="math">
+            √8 = √4×2 = 2√2
+            </span>
+            <br><br>
+
+            Jadi:
+            <br>
+            <span class="math">
+            5√2 + 2√2 = 7√2
+            </span>
+        `
+    },
+
+
+    {
+        question: `
+            Hasil dari
+            <span class="math">
+            √80 − 3√45 + 3√5
+            </span>
+            adalah...
+        `,
+
+        answers: [
+            "√5",
+            "−2√5",
+            "−5√5",
+            "−8√5"
+        ],
+
+        correct: 1,
+
+        explanation: `
+            <strong>Jawaban: B. −2√5</strong><br><br>
+
+            Sederhanakan:
+            <br>
+            <span class="math">√80 = 4√5</span>
+            <br>
+            <span class="math">√45 = 3√5</span>
+            <br><br>
+
+            Maka:
+            <br>
+            <span class="math">
+            4√5 − 3(3√5) + 3√5
+            </span>
+            <br>
+            <span class="math">
+            = 4√5 − 9√5 + 3√5
+            = −2√5
+            </span>
+        `
+    },
+
+
+    {
+        question: `
+            Bentuk akar dari
+            <span class="math">2<sup>3/2</sup></span>
+            adalah...
+        `,
+
+        answers: [
+            "2√2",
+            "3√2",
+            "√2/2",
+            "√3/2"
+        ],
+
+        correct: 0,
+
+        explanation: `
+            <strong>Jawaban: A. 2√2</strong><br><br>
+
+            Gunakan:
+            <br>
+            <span class="math">
+            a<sup>m/n</sup> = ⁿ√(aᵐ)
+            </span>
+            <br><br>
+
+            Jadi:
+            <br>
+            <span class="math">
+            2<sup>3/2</sup>
+            = √(2³)
+            = √8
+            = 2√2
+            </span>
+        `
+    },
+
+
+    {
+        question: `
+            Bentuk baku dari
+            <span class="math">0,00078</span>
+            adalah...
+        `,
+
+        answers: [
+            "7,8 × 10⁻⁵",
+            "7,8 × 10⁻⁴",
+            "7,8 × 10⁴",
+            "7,8 × 10⁵"
+        ],
+
+        correct: 1,
+
+        explanation: `
+            <strong>Jawaban: B. 7,8 × 10⁻⁴</strong><br><br>
+
+            Geser koma 4 tempat ke kanan:
+            <br>
+            <span class="math">
+            0,00078 → 7,8
+            </span>
+            <br><br>
+
+            Karena koma digeser ke kanan 4 tempat,
+            pangkat 10 menjadi −4.
+            <br><br>
+
+            Jadi:
+            <br>
+            <span class="math">
+            0,00078 = 7,8 × 10⁻⁴
+            </span>
+        `
+    },
+
+
+    {
+        question: `
+            Sebuah kubus memiliki panjang rusuk
+            <span class="math">6 cm</span>.
+            Berapakah luas permukaannya?
+        `,
+
+        diagram: `
+            <svg width="300" height="210" viewBox="0 0 300 210">
+                <polygon points="80,60 180,35 235,70 135,95"
+                    fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+                <polygon points="80,60 135,95 135,175 80,140"
+                    fill="#bfdbfe" stroke="#2563eb" stroke-width="3"/>
+                <polygon points="135,95 235,70 235,150 135,175"
+                    fill="#93c5fd" stroke="#2563eb" stroke-width="3"/>
+                <text x="105" y="55" font-size="16">6 cm</text>
+                <text x="240" y="115" font-size="16">6 cm</text>
+            </svg>
+            <div class="diagram-caption">
+                Kubus dengan rusuk 6 cm
+            </div>
+        `,
+
+        answers: [
+            "36 cm²",
+            "72 cm²",
+            "216 cm²",
+            "324 cm²"
+        ],
+
+        correct: 2,
+
+        explanation: `
+            <strong>Jawaban: C. 216 cm²</strong><br><br>
+
+            Luas permukaan kubus:
+            <br>
+            <span class="math">
+            L = 6s²
+            </span>
+            <br><br>
+
+            Dengan <span class="math">s = 6</span>:
+            <br>
+            <span class="math">
+            L = 6 × 6²
+            = 6 × 36
+            = 216 cm²
+            </span>
+        `
+    },
+
+
+    {
+        question: `
+            Sebuah balok memiliki panjang
+            <span class="math">12 cm</span>,
+            lebar <span class="math">5 cm</span>,
+            dan tinggi <span class="math">4 cm</span>.
+            Berapakah volumenya?
+        `,
+
+        diagram: `
+            <svg width="330" height="210" viewBox="0 0 330 210">
+                <polygon points="60,75 220,45 275,80 115,110"
+                    fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+                <polygon points="60,75 115,110 115,180 60,145"
+                    fill="#bfdbfe" stroke="#2563eb" stroke-width="3"/>
+                <polygon points="115,110 275,80 275,150 115,180"
+                    fill="#93c5fd" stroke="#2563eb" stroke-width="3"/>
+
+                <text x="140" y="50" font-size="15">12 cm</text>
+                <text x="235" y="105" font-size="15">5 cm</text>
+                <text x="120" y="150" font-size="15">4 cm</text>
+            </svg>
+
+            <div class="diagram-caption">
+                Balok p = 12 cm, l = 5 cm, t = 4 cm
+            </div>
+        `,
+
+        answers: [
+            "120 cm³",
+            "180 cm³",
+            "240 cm³",
+            "300 cm³"
+        ],
+
+        correct: 2,
+
+        explanation: `
+            <strong>Jawaban: C. 240 cm³</strong><br><br>
+
+            Rumus volume balok:
+            <br>
+            <span class="math">
+            V = p × l × t
+            </span>
+            <br><br>
+
+            <span class="math">
+            V = 12 × 5 × 4
+            = 240 cm³
+            </span>
+        `
+    },
+
+
+    {
+        question: `
+            Sebuah prisma memiliki luas alas
+            <span class="math">30 cm²</span>
+            dan tinggi prisma
+            <span class="math">10 cm</span>.
+            Berapakah volumenya?
+        `,
+
+        diagram: `
+            <svg width="300" height="200" viewBox="0 0 300 200">
+                <polygon points="70,135 145,55 220,135"
+                    fill="#bfdbfe"
+                    stroke="#2563eb"
+                    stroke-width="3"/>
+
+                <line x1="145" y1="55" x2="145" y2="135"
+                    stroke="#2563eb"
+                    stroke-width="2"
+                    stroke-dasharray="6"/>
+
+                <text x="105" y="155" font-size="15">
+                    Luas alas = 30 cm²
+                </text>
+
+                <text x="153" y="100" font-size="15">
+                    10 cm
+                </text>
+            </svg>
+
+            <div class="diagram-caption">
+                Luas alas = 30 cm² dan tinggi = 10 cm
+            </div>
+        `,
+
+        answers: [
+            "30 cm³",
+            "100 cm³",
+            "300 cm³",
+            "600 cm³"
+        ],
+
+        correct: 2,
+
+        explanation: `
+            <strong>Jawaban: C. 300 cm³</strong><br><br>
+
+            Volume prisma:
+            <br>
+            <span class="math">
+            V = luas alas × tinggi
+            </span>
+            <br><br>
+
+            <span class="math">
+            V = 30 × 10
+            = 300 cm³
+            </span>
+        `
+    },
+
+
+    {
+        question: `
+            Sebuah tabung memiliki jari-jari
+            <span class="math">7 cm</span>
+            dan tinggi <span class="math">10 cm</span>.
+            Gunakan π = 22/7.
+            Berapakah luas permukaannya?
+        `,
+
+        diagram: `
+            <svg width="260" height="230" viewBox="0 0 260 230">
+                <ellipse cx="130" cy="45" rx="70" ry="25"
+                    fill="#dbeafe"
+                    stroke="#2563eb"
+                    stroke-width="3"/>
+
+                <line x1="60" y1="45" x2="60" y2="175"
+                    stroke="#2563eb"
+                    stroke-width="3"/>
+
+                <line x1="200" y1="45" x2="200" y2="175"
+                    stroke="#2563eb"
+                    stroke-width="3"/>
+
+                <ellipse cx="130" cy="175" rx="70" ry="25"
+                    fill="#bfdbfe"
+                    stroke="#2563eb"
+                    stroke-width="3"/>
+
+                <line x1="130" y1="45" x2="200" y2="45"
+                    stroke="#111827"
+                    stroke-width="2"/>
+
+                <text x="140" y="38" font-size="15">
+                    r = 7 cm
+                </text>
+
+                <text x="205" y="115" font-size="15">
+                    t = 10 cm
+                </text>
+            </svg>
+
+            <div class="diagram-caption">
+                Tabung r = 7 cm, t = 10 cm
+            </div>
+        `,
+
+        answers: [
+            "528 cm²",
+            "616 cm²",
+            "748 cm²",
+            "880 cm²"
+        ],
+
+        correct: 2,
+
+        explanation: `
+            <strong>Jawaban: C. 748 cm²</strong><br><br>
+
+            Luas permukaan tabung:
+            <br>
+            <span class="math">
+            L = 2πr(r + t)
+            </span>
+            <br><br>
+
+            <span class="math">
+            L = 2 × 22/7 × 7 × (7 + 10)
+            </span>
+            <br>
+            <span class="math">
+            = 44 × 17
+            = 748 cm²
+            </span>
+        `
+    },
+
+
+    {
+        question: `
+            Sebuah kerucut mempunyai jari-jari
+            <span class="math">7 cm</span>
+            dan tinggi <span class="math">24 cm</span>.
+            Gunakan π = 22/7.
+            Berapakah volumenya?
+        `,
+
+        diagram: `
+            <svg width="300" height="250" viewBox="0 0 300 250">
+
+                <ellipse cx="150" cy="190" rx="90" ry="25"
+                    fill="#bfdbfe"
+                    stroke="#2563eb"
+                    stroke-width="3"/>
+
+                <polygon points="60,190 150,45 240,190"
+                    fill="#dbeafe"
+                    fill-opacity="0.7"
+                    stroke="#2563eb"
+                    stroke-width="3"/>
+
+                <line x1="150" y1="45" x2="150" y2="190"
+                    stroke="#111827"
+                    stroke-width="2"
+                    stroke-dasharray="6"/>
+
+                <text x="157" y="120" font-size="15">
+                    24 cm
+                </text>
+
+                <text x="180" y="205" font-size="15">
+                    r = 7 cm
+                </text>
+
+            </svg>
+
+            <div class="diagram-caption">
+                Kerucut r = 7 cm, t = 24 cm
+            </div>
+        `,
+
+        answers: [
+            "616 cm³",
+            "924 cm³",
+            "1.232 cm³",
+            "1.848 cm³"
+        ],
+
+        correct: 2,
+
+        explanation: `
+            <strong>Jawaban: C. 1.232 cm³</strong><br><br>
+
+            Rumus volume kerucut:
+            <br>
+            <span class="math">
+            V = 1/3 πr²t
+            </span>
+            <br><br>
+
+            <span class="math">
+            V = 1/3 × 22/7 × 7² × 24
+            </span>
+            <br><br>
+
+            <span class="math">
+            = 1/3 × 22 × 7 × 24
+            </span>
+            <br>
+            <span class="math">
+            = 1.232 cm³
+            </span>
+        `
+    },
+
+
+    {
+        question: `
+            Sebuah bola mempunyai jari-jari
+            <span class="math">7 cm</span>.
+            Gunakan π = 22/7.
+            Berapakah luas permukaan bola?
+        `,
+
+        diagram: `
+            <svg width="250" height="220" viewBox="0 0 250 220">
+
+                <circle cx="125" cy="110" r="75"
+                    fill="#dbeafe"
+                    stroke="#2563eb"
+                    stroke-width="3"/>
+
+                <line x1="125" y1="110" x2="200" y2="110"
+                    stroke="#111827"
+                    stroke-width="2"/>
+
+                <text x="145" y="102" font-size="15">
+                    r = 7 cm
+                </text>
+
+            </svg>
+
+            <div class="diagram-caption">
+                Bola dengan jari-jari 7 cm
+            </div>
+        `,
+
+        answers: [
+            "154 cm²",
+            "308 cm²",
+            "462 cm²",
+            "616 cm²"
+        ],
+
+        correct: 3,
+
+        explanation: `
+            <strong>Jawaban: D. 616 cm²</strong><br><br>
+
+            Luas permukaan bola:
+            <br>
+            <span class="math">
+            L = 4πr²
+            </span>
+            <br><br>
+
+            <span class="math">
+            L = 4 × 22/7 × 7²
+            </span>
+            <br>
+            <span class="math">
+            = 4 × 22 × 7
+            = 616 cm²
+            </span>
+        `
+    },
+
+
+    {
+        question: `
+            Sebuah balok memiliki ukuran
+            <span class="math">8 cm × 5 cm × 3 cm</span>.
+            Berapakah luas permukaannya?
+        `,
+
+        diagram: `
+            <svg width="330" height="200" viewBox="0 0 330 200">
+
+                <polygon points="55,65 210,40 270,75 115,100"
+                    fill="#dbeafe"
+                    stroke="#2563eb"
+                    stroke-width="3"/>
+
+                <polygon points="55,65 115,100 115,170 55,135"
+                    fill="#bfdbfe"
+                    stroke="#2563eb"
+                    stroke-width="3"/>
+
+                <polygon points="115,100 270,75 270,145 115,170"
+                    fill="#93c5fd"
+                    stroke="#2563eb"
+                    stroke-width="3"/>
+
+                <text x="130" y="40" font-size="15">
+                    8 cm
+                </text>
+
+                <text x="275" y="110" font-size="15">
+                    5 cm
+                </text>
+
+                <text x="120" y="145" font-size="15">
+                    3 cm
+                </text>
+
+            </svg>
+        `,
+
+        answers: [
+            "118 cm²",
+            "158 cm²",
+            "168 cm²",
+            "198 cm²"
+        ],
+
+        correct: 1,
+
+        explanation: `
+            <strong>Jawaban: B. 158 cm²</strong><br><br>
+
+            Rumus:
+            <br>
+            <span class="math">
+            L = 2(pl + pt + lt)
+            </span>
+            <br><br>
+
+            <span class="math">
+            L = 2[(8×5) + (8×3) + (5×3)]
+            </span>
+            <br>
+            <span class="math">
+            = 2(40 + 24 + 15)
+            </span>
+            <br>
+            <span class="math">
+            = 2 × 79
+            = 158 cm²
+            </span>
+        `
+    },
+
+
+    {
+        question: `
+            Sebuah prisma segitiga mempunyai luas alas
+            <span class="math">24 cm²</span>
+            dan tinggi prisma
+            <span class="math">15 cm</span>.
+            Berapakah volumenya?
+        `,
+
+        answers: [
+            "240 cm³",
+            "300 cm³",
+            "360 cm³",
+            "390 cm³"
+        ],
+
+        correct: 2,
+
+        explanation: `
+            <strong>Jawaban: C. 360 cm³</strong><br><br>
+
+            <span class="math">
+            V = luas alas × tinggi
+            </span>
+            <br><br>
+
+            <span class="math">
+            V = 24 × 15
+            = 360 cm³
+            </span>
+        `
+    },
+
+
+    {
+        question: `
+            Sebuah limas mempunyai luas alas
+            <span class="math">60 cm²</span>
+            dan tinggi <span class="math">12 cm</span>.
+            Berapakah volumenya?
+        `,
+
+        diagram: `
+            <svg width="280" height="230" viewBox="0 0 280 230">
+
+                <polygon points="55,165 140,190 225,165 140,140"
+                    fill="#bfdbfe"
+                    stroke="#2563eb"
+                    stroke-width="3"/>
+
+                <line x1="140" y1="40" x2="55" y2="165"
+                    stroke="#2563eb"
+                    stroke-width="3"/>
+
+                <line x1="140" y1="40" x2="225" y2="165"
+                    stroke="#2563eb"
+                    stroke-width="3"/>
+
+                <line x1="140" y1="40" x2="140" y2="165"
+                    stroke="#111827"
+                    stroke-width="2"
+                    stroke-dasharray="6"/>
+
+                <text x="148" y="105" font-size="15">
+                    12 cm
+                </text>
+
+                <text x="90" y="185" font-size="14">
+                    luas alas = 60 cm²
+                </text>
+
+            </svg>
+        `,
+
+        answers: [
+            "180 cm³",
+            "240 cm³",
+            "360 cm³",
+            "720 cm³"
+        ],
+
+        correct: 1,
+
+        explanation: `
+            <strong>Jawaban: B. 240 cm³</strong><br><br>
+
+            Rumus volume limas:
+            <br>
+            <span class="math">
+            V = 1/3 × luas alas × tinggi
+            </span>
+            <br><br>
+
+            <span class="math">
+            V = 1/3 × 60 × 12
+            = 240 cm³
+            </span>
+        `
+    },
+
+
+    {
+        question: `
+            Sebuah tabung mempunyai diameter
+            <span class="math">14 cm</span>
+            dan tinggi <span class="math">20 cm</span>.
+            Gunakan π = 22/7.
+            Berapakah volumenya?
+        `,
+
+        answers: [
+            "2.640 cm³",
+            "3.080 cm³",
+            "3.140 cm³",
+            "3.520 cm³"
+        ],
+
+        correct: 3,
+
+        explanation: `
+            <strong>Jawaban: D. 3.080 cm³</strong><br><br>
+
+            Diameter = 14 cm, sehingga:
+            <br>
+            <span class="math">r = 7 cm</span>
+            <br><br>
+
+            Volume tabung:
+            <br>
+            <span class="math">
+            V = πr²t
+            </span>
+            <br>
+            <span class="math">
+            V = 22/7 × 7² × 20
+            </span>
+            <br>
+            <span class="math">
+            = 22 × 7 × 20
+            = 3.080 cm³
+            </span>
+        `
+    },
+
+
+    {
+        question: `
+            Sebuah kubus mempunyai volume
+            <span class="math">729 cm³</span>.
+            Berapakah panjang rusuk kubus?
+        `,
+
+        diagram: `
+            <svg width="250" height="200" viewBox="0 0 250 200">
+
+                <polygon points="55,60 145,40 195,70 105,90"
+                    fill="#dbeafe"
+                    stroke="#2563eb"
+                    stroke-width="3"/>
+
+                <polygon points="55,60 105,90 105,165 55,135"
+                    fill="#bfdbfe"
+                    stroke="#2563eb"
+                    stroke-width="3"/>
+
+                <polygon points="105,90 195,70 195,145 105,165"
+                    fill="#93c5fd"
+                    stroke="#2563eb"
+                    stroke-width="3"/>
+
+                <text x="115" y="38" font-size="16">
+                    s = ?
+                </text>
+
+            </svg>
+        `,
+
+        answers: [
+            "7 cm",
+            "8 cm",
+            "9 cm",
+            "10 cm"
+        ],
+
+        correct: 2,
+
+        explanation: `
+            <strong>Jawaban: C. 9 cm</strong><br><br>
+
+            Volume kubus:
+            <br>
+            <span class="math">
+            V = s³
+            </span>
+            <br><br>
+
+            Maka:
+            <br>
+            <span class="math">
+            s³ = 729
+            </span>
+            <br><br>
+
+            Karena:
+            <br>
+            <span class="math">
+            9³ = 729
+            </span>
+            <br><br>
+
+            Jadi panjang rusuk = <strong>9 cm</strong>.
+        `
+    },
+
+
+    {
+        question: `
+            Sebuah bola mempunyai diameter
+            <span class="math">14 cm</span>.
+            Gunakan π = 22/7.
+            Berapakah volumenya?
+        `,
+
+        answers: [
+            "1.436,33cm³",
+            "1.437,33 cm³",
+            "1.438,33 cm³",
+            "1.439,33 cm³"
+        ],
+
+        correct: 1,
+
+        explanation: `
+            <strong>Jawaban: A. 1.437,33 Perhatikan perhitungan.</strong><br><br>
+
+            Diameter 14 cm berarti:
+            <br>
+            <span class="math">r = 7 cm</span>
+            <br><br>
+
+            Volume bola:
+            <br>
+            <span class="math">
+            V = 4/3 πr³
+            </span>
+            <br><br>
+
+            <span class="math">
+            V = 4/3 × 22/7 × 7³
+            </span>
+            <br>
+            <span class="math">
+            = 4/3 × 22 × 49
+            = 4312/3
+            ≈ 1.437,33 cm³
+            </span>
+            <br><br>
+
+            <strong>
+            Catatan: soal ini sebaiknya menggunakan pilihan
+            1.437,33 cm³ agar tidak ambigu.
+            </strong>
+        `
+    },
+
+
+    {
+        question: `
+            Nilai dari
+            <span class="math">
+            3√2 + 5√2 − 2√2
+            </span>
+            adalah...
+        `,
+
+        answers: [
+            "4√2",
+            "5√2",
+            "6√2",
+            "10√2"
+        ],
+
+        correct: 2,
+
+        explanation: `
+            <strong>Jawaban: C. 6√2</strong><br><br>
+
+            Karena semua mempunyai bentuk akar yang sama,
+            koefisiennya dapat dijumlahkan:
+            <br><br>
+
+            <span class="math">
+            3√2 + 5√2 − 2√2
+            </span>
+            <br>
+            <span class="math">
+            = (3 + 5 − 2)√2
+            = 6√2
+            </span>
+        `
+    },
+
+
+    {
+        question: `
+            Manakah yang merupakan bentuk baku yang benar
+            untuk bilangan <span class="math">4.500.000</span>?
+        `,
+
+        answers: [
+            "4,5 × 10⁵",
+            "4,5 × 10⁶",
+            "45 × 10⁵",
+            "0,45 × 10⁷"
+        ],
+
+        correct: 1,
+
+        explanation: `
+            <strong>Jawaban: B. 4,5 × 10⁶</strong><br><br>
+
+            Bentuk baku harus mempunyai angka depan
+            antara 1 sampai kurang dari 10.
+            <br><br>
+
+            <span class="math">
+            4.500.000 = 4,5 × 10⁶
+            </span>
+        `
+    }
+
+];
+
+
+/* =====================================================
+   VARIABEL
+===================================================== */
+
+let currentQuestion = 0;
+let score = 0;
+let answered = false;
+
+
+/* =====================================================
+   MENAMPILKAN SOAL
+===================================================== */
+
+function showQuestion() {
+
+    const question = questions[currentQuestion];
+
+    const container =
+        document.getElementById("questionContainer");
+
+    answered = false;
+
+    let diagramHTML = "";
+
+    if (question.diagram) {
+        diagramHTML = `
+            <div class="diagram">
+                ${question.diagram}
+            </div>
+        `;
+    }
+
+    container.innerHTML = `
+
+        <div class="question-card">
+
+            <div class="question-number">
+                Soal ${currentQuestion + 1} dari ${questions.length}
+            </div>
+
+            <div class="question-text">
+                ${question.question}
+            </div>
+
+            ${diagramHTML}
+
+            <div class="answers">
+
+                ${question.answers.map((answer, index) => `
+
+                    <button
+                        class="answer"
+                        onclick="selectAnswer(${index})">
+
+                        <strong>
+                            ${String.fromCharCode(65 + index)}.
+                        </strong>
+
+                        ${answer}
+
+                    </button>
+
+                `).join("")}
+
+            </div>
+
+            <div
+                id="feedback"
+                class="feedback">
+            </div>
+
+            <details class="solution">
+
+                <summary>
+                    ▶ Jawaban & Pembahasan
+                </summary>
+
+                <div class="solution-content">
+
+                    ${question.explanation}
+
+                </div>
+
+            </details>
+
+            <div class="question-navigation">
+
+                <button
+                    class="nav-button previous-button"
+                    onclick="previousQuestion()"
+                    ${currentQuestion === 0 ? "disabled" : ""}>
+
+                    ← Sebelumnya
+
+                </button>
+
+                <button
+                    class="nav-button next-button"
+                    onclick="nextQuestion()">
+
+                    ${currentQuestion === questions.length - 1
+                        ? "Selesai ✓"
+                        : "Soal Berikutnya →"}
+
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+    updateProgress();
+}
+
+
+/* =====================================================
+   PILIH JAWABAN
+===================================================== */
+
+function selectAnswer(index) {
+
+    if (answered) return;
+
+    answered = true;
+
+    const question = questions[currentQuestion];
+
+    const buttons =
+        document.querySelectorAll(".answer");
+
+    const feedback =
+        document.getElementById("feedback");
+
+
+    if (index === question.correct) {
+
+        buttons[index].classList.add("correct");
+
+        feedback.textContent =
+            "✓ Benar! Jawaban kamu tepat.";
+
+        feedback.classList.add(
+            "show",
+            "correct-feedback"
+        );
+
+        score++;
+
+    } else {
+
+        buttons[index].classList.add("wrong");
+
+        buttons[question.correct]
+            .classList.add("correct");
+
+        feedback.innerHTML =
+            "✗ Jawaban belum tepat. " +
+            "Lihat jawaban yang benar pada pilihan yang ditandai.";
+
+        feedback.classList.add(
+            "show",
+            "wrong-feedback"
+        );
+    }
+
+    document.getElementById("scoreText").textContent =
+        `Skor: ${score}`;
+
+}
+
+
+/* =====================================================
+   SOAL BERIKUTNYA
+===================================================== */
+
+function nextQuestion() {
+
+    if (currentQuestion < questions.length - 1) {
+
+        currentQuestion++;
+
+        showQuestion();
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    } else {
+
+        showResult();
+
+    }
+
+}
+
+
+/* =====================================================
+   SOAL SEBELUMNYA
+===================================================== */
+
+function previousQuestion() {
+
+    if (currentQuestion > 0) {
+
+        currentQuestion--;
+
+        showQuestion();
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+}
+
+
+/* =====================================================
+   PROGRESS
+===================================================== */
+
+function updateProgress() {
+
+    const percentage =
+        ((currentQuestion + 1) / questions.length) * 100;
+
+    document.getElementById("progressFill")
+        .style.width = percentage + "%";
+
+    document.getElementById("progressText")
+        .textContent =
+        `Soal ${currentQuestion + 1} dari ${questions.length}`;
+
+    document.getElementById("scoreText")
+        .textContent =
+        `Skor: ${score}`;
+
+}
+
+
+/* =====================================================
+   HASIL AKHIR
+===================================================== */
+
+function showResult() {
+
+    document.getElementById("questionContainer")
+        .style.display = "none";
+
+    document.querySelector(".progress-container")
+        .style.display = "none";
+
+    const result =
+        document.getElementById("resultScreen");
+
+    result.classList.add("show");
+
+    document.getElementById("finalScore")
+        .textContent =
+        `${score}/${questions.length}`;
+
+    const percentage =
+        Math.round(
+            score / questions.length * 100
+        );
+
+    let message = "";
+
+    if (percentage >= 90) {
+
+        message =
+            "🔥 Luar biasa! Penguasaan materimu sangat bagus.";
+
+    } else if (percentage >= 75) {
+
+        message =
+            "👏 Bagus! Tinggal sedikit lagi untuk lebih sempurna.";
+
+    } else if (percentage >= 60) {
+
+        message =
+            "👍 Lumayan! Coba pelajari kembali soal yang salah.";
+
+    } else {
+
+        message =
+            "💪 Jangan menyerah! Pelajari pembahasannya dan coba lagi.";
+
+    }
+
+    document.getElementById("finalMessage")
+        .textContent =
+        `${percentage}% — ${message}`;
+
+}
+
+
+/* =====================================================
+   ULANGI
+===================================================== */
+
+function restartQuiz() {
+
+    currentQuestion = 0;
+    score = 0;
+
+    document.getElementById("questionContainer")
+        .style.display = "block";
+
+    document.querySelector(".progress-container")
+        .style.display = "block";
+
+    document.getElementById("resultScreen")
+        .classList.remove("show");
+
+    showQuestion();
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+/* =====================================================
+   MULAI
+===================================================== */
+
+showQuestion();
+
+</script>
 
 </body>
 </html>
